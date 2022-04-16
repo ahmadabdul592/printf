@@ -5,7 +5,7 @@
 /*macro*/
 #define BUF_LENGTH 1024
 
-/*in print1.c*/
+/*in printf.c*/
 int _printf(const char *format, ...);
 void error_format(const char *format);
 int no_conversation(char);
