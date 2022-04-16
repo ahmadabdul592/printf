@@ -1,69 +1,47 @@
 #include "main.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
 
 /**
- * error_format - return error
- * @format: format
- * none
- */
-void error_format(const char *format)
-{
-	if (!format || !*format)
-	{
-		write(1, "error", 6);
-		exit(98);
-	}
-}
-
-/**
- * _printf - trying to make printf
- * @format: format of string
- * Return: number of chars printed
+ * _printf - produces output according to a format
+ * @format: format string containing the characters and the specifiers
+ * Description: this function will call the get_print() function that will
+ * determine which printing function to call depending on the conversion
+ * specifiers contained into fmt
+ * Return: length of the formatted output string
  */
 int _printf(const char *format, ...)
 {
-	int i, b_i, l_conv, flag;
-	char *buffer, *conv, *format_str;
-	va_list alist;
+	int (*pfunc)(va_list, flags_t *);
+	const char *p;
+	va_list arguments;
+	flags_t flags = {0, 0, 0};
 
-	error_format(format);
-	buffer = malloc(BUF_LENGTH * sizeof(char));
-	_flush(buffer);
-	va_start(alist, format), flag = b_i = 0;
-	for (i = 0; format[i] != '\0';)
+	register int count = 0;
+
+	va_start(arguments, format);
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (p = format; *p; p++)
 	{
-		if (format[i] != '%')
+		if (*p == '%')
 		{
-			fill_buffer(buffer, format + i, b_i, 1);
-			i += 1, b_i += 1;
-		}
-		if (format[i] == '%')
-		{
-			flag = 1, conv = grab_format(format + i);
-			if (format[i + 1] == '%' || conv == NULL)
+			p++;
+			if (*p == '%')
 			{
-				flag = (flag == 0) ? 1 : 0;
-				fill_buffer(buffer, format + i, b_i, 1);
-				i += 2, b_i += 1;
+				count += _putchar('%');
+				continue;
 			}
-		}
-		if (flag == 1)
-		{
-			flag = 0;
-			conv = grab_format(format + i);
-			l_conv = _strlen(conv);
-			format_str = get_mstring_func(conv[l_conv - 1])(conv, alist);
-			free(conv);
-			fill_buffer(buffer, format_str, b_i, _strlen(format_str));
-			b_i = b_i + _strlen(format_str);
-			free(format_str), i += l_conv;
-		}
+			while (get_flag(*p, &flags))
+				p++;
+			pfunc = get_print(*p);
+			count += (pfunc)
+				? pfunc(arguments, &flags)
+				: _printf("%%%c", *p);
+		} else
+			count += _putchar(*p);
 	}
-		print_buffer(buffer, b_i);
-		free(buffer);
-		return (b_i);
+	_putchar(-1);
+	va_end(arguments);
+	return (count);
 }
