@@ -1,5 +1,5 @@
 This is a printf function with functionalities of printing characters, strings, octals, hexadecimals (x and X) and a custom binary format.
-print1.c is our file that contain printf function.
+printf.c is our file that contain printf function.
 we created a file for each formatter. Formatter files:
 binary.c
 chars.c
