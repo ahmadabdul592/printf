@@ -1,15 +1,15 @@
 ![ ALX School of Software Engineering](https://lh3.googleusercontent.com/oVJxT1yn7vwaEM8t9A5MGL6emG0j-_uqHa5H8ikWLvl6Ka-nVmUJZblqWDqPiY-S6itPLnZNgcc8rviK8AVT65l_a3zHiyctwy8=s0)
 ---
 ## Project
----
+
 > Write your own printf function.
----
+
 ## Welcome
----
+
 This is a rebuild of the standard printf function in C. The printf functions, returns or sends a formatted string to the standard output.
 
 ## Description
----
+
 This is a printf function with functionalities of printing characters, strings, octals, hexadecimals (x and X) and a custom binary format.
 > - print1.c
 is our file that contain printf function.
@@ -37,12 +37,12 @@ lastly, we have a manual for the
 >  - printf man_3_printf
 
 ## Built With
----
+
 - [UBUNTU](https://ubuntu.com/).
 - [GitHub](https://github-dotcom.gateway.web.tr/).
 
 ## Requirements
----
+
 
 - Allowed editors:** vi**, **vim**,** emacs**
 - All your files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89.
