@@ -51,7 +51,7 @@ int print_rev(va_list l, flags_t *f)
 
 	(void)f;
 	if (s == NULL)
-		s = ")llun(";
+		s = "(llun)";
 	while (s[i])
 		i++;
 
